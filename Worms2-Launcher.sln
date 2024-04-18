@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.34031.82
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worms2-Launcher", "Worms2\Worms2-Launcher.csproj", "{182C7F27-986A-4FFF-8AC9-5A49EA4277DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "start", "start\start.csproj", "{970289B8-C872-4F17-8B5C-1D4363FE7CAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{182C7F27-986A-4FFF-8AC9-5A49EA4277DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{182C7F27-986A-4FFF-8AC9-5A49EA4277DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{182C7F27-986A-4FFF-8AC9-5A49EA4277DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{970289B8-C872-4F17-8B5C-1D4363FE7CAF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{970289B8-C872-4F17-8B5C-1D4363FE7CAF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{970289B8-C872-4F17-8B5C-1D4363FE7CAF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{970289B8-C872-4F17-8B5C-1D4363FE7CAF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

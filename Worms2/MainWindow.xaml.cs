@@ -3,6 +3,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Reflection;
 using System.Threading;
 using System.Windows;
 using System.Windows.Input;
@@ -15,6 +16,8 @@ namespace Worms2
         string fileExtension = ".wmv";
         string msgFileNotFound = "File not found: ";
         int forceClose = 0;
+
+        public static string folderPrefix = "..\\";
 
         public MainWindow()
         {
@@ -50,17 +53,18 @@ namespace Worms2
                         Close();
                     }
                 }
-                if (File.Exists("video.ini"))
+                string FileExt = "ext.txt";
+                if (File.Exists(FileExt))
                 {
-                    string iniContents = File.ReadAllText("video.ini").Trim();
-                    if (iniContents.Length == 3 || iniContents.Length == 4)
+                    string txtContents = File.ReadAllText(FileExt).Trim();
+                    if (txtContents.Length == 3 || txtContents.Length == 4)
                     {
-                        fileExtension = "." + iniContents;
+                        fileExtension = "." + txtContents;
                     }
                 }
 
                 string fileIntro = "Intro" + fileExtension;
-                if (!File.Exists(fileIntro))
+                if (!File.Exists(folderPrefix + fileIntro))
                 {
                     MessageBox.Show(msgFileNotFound + fileIntro);
                     Close();
@@ -69,7 +73,7 @@ namespace Worms2
                 {
                     VideoPlayer.MediaEnded += OnMediaEnded;
                     VideoPlayer.MediaFailed += OnMediaEnded;
-                    VideoPlayer.Source = new Uri(fileIntro, UriKind.Relative);
+                    VideoPlayer.Source = new Uri(folderPrefix + fileIntro, UriKind.Relative);
                     VideoPlayer.Play();
                     this.PreviewKeyDown += new KeyEventHandler(HandleEsc);
                 }
@@ -99,20 +103,20 @@ namespace Worms2
         private void OnMediaEnded(object sender, RoutedEventArgs e)
         {
             var currentVideo = VideoPlayer.Source.ToString();
-            if (currentVideo == "Intro" + fileExtension)
+            if (currentVideo == folderPrefix + "Intro" + fileExtension)
             {
                 string[] videoList = { "ARMAG", "BANDIT", "BASEBALL", "GRENADE1", "PINGPONG", "TV", "VIDCAM" };
                 Random random = new Random();
                 var randomVideoIndex = random.Next(0, videoList.Length);
                 var randomVideoFile = videoList[randomVideoIndex] + fileExtension;
-                if (!File.Exists(randomVideoFile))
+                if (!File.Exists(folderPrefix + randomVideoFile))
                 {
                     MessageBox.Show("File not found: " + randomVideoFile);
                     Close();
                 }
                 else
                 {
-                    VideoPlayer.Source = new Uri(videoList[randomVideoIndex] + fileExtension, UriKind.Relative);
+                    VideoPlayer.Source = new Uri(folderPrefix + randomVideoFile, UriKind.Relative);
                 }
             }
             else
@@ -125,10 +129,12 @@ namespace Worms2
             if (forceClose != 1)
             {
                 var appLaunch = "frontend.exe";
-                if (File.Exists(appLaunch))
+                if (File.Exists(folderPrefix + appLaunch))
                 {
-                    var processInfo = new ProcessStartInfo("frontend.exe");
-                    Process.Start(processInfo);
+                    ProcessStartInfo _processStartInfo = new ProcessStartInfo();
+                    _processStartInfo.WorkingDirectory = Path.Combine(Environment.CurrentDirectory, folderPrefix);
+                    _processStartInfo.FileName = appLaunch;
+                    Process myProcess = Process.Start(_processStartInfo);
                 }
                 else
                 {
